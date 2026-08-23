@@ -461,7 +461,7 @@ const Landing = () => {
           </div>
         </div>
 
-        <p className="footer-copyright">© 2026 FornoRosso. Built for OIBSIP Level 3.</p>
+        <p className="footer-copyright">© 2026 FornoRosso. Crafed & Developed by Sumit Rathore.</p>
       </footer>
 
       {confirmPizza && (
