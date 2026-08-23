@@ -49,8 +49,8 @@ const TESTIMONIALS = [
 ];
 
 const STEPS = [
-  { icon: '🧑‍🍳', title: 'Pick Your Base', text: 'Choose from 5 crust styles, sauces, and cheeses to start your build.' },
-  { icon: '🥗', title: 'Add Your Toppings', text: 'Load up on veggies — mix and match as many as you like, no extra steps.' },
+  { icon: '🧑‍🍳', title: 'Pick Your Base', text: 'Choose from 5 crust styles, sauces and cheeses to start your build.' },
+  { icon: '🥗', title: 'Add Your Toppings', text: 'Load up on veggies-mix and match as many as you like, no extra steps.' },
   { icon: '🚴', title: 'Fired & Delivered', text: 'We bake it fresh and get it to your door, with live status tracking.' },
 ];
 
@@ -200,7 +200,7 @@ const Landing = () => {
 
   return (
     <div>
-            <div className={`offer-header ${offerBlink ? 'blink' : ''}`}>{todaysOffer}</div>
+      <div className={`offer-header ${offerBlink ? 'blink' : ''}`}>{todaysOffer}</div>
 
       <header className="site-header">
         <div className="site-header-inner">
@@ -230,10 +230,10 @@ const Landing = () => {
         <div className={`hero-text ${loaded ? 'load-in' : 'load-pending'}`} style={{ transitionDelay: '0ms' }}>
           <div className="hero-badge">🔥 Fresh out of the oven, every time</div>
           <h1>Build your <span style={{ color: 'var(--red)' }}>perfect</span> pizza.</h1>
-          <p>Pick your base, sauce, cheese, and toppings. We'll fire it up and get it to your door — hot, fresh, and exactly how you like it.</p>
+          <p>Pick your base, sauce, cheese and toppings. We'll fire it up and get it to your door hot, fresh and exactly how you like it.</p>
           <div>
-            <button className="btn btn-primary" onClick={() => navigate('/register')} style={{ marginRight: 10 }}>Order Now</button>
-            <button className="btn" onClick={() => navigate('/login')}>I Already Have an Account</button>
+            <button className="btn btn-primary" onClick={() => navigate('/Builder')} style={{ marginRight: 10 }}>Order Now</button>
+            <button className="btn" onClick={() => navigate('/Favorites')}>My Favorites</button>
           </div>
         </div>
         <div className={`hero-visual ${loaded ? 'load-in' : 'load-pending'}`} style={{ transitionDelay: '150ms' }}>
@@ -246,7 +246,7 @@ const Landing = () => {
             />
           </div>
           <div className="hero-topping-picker">
-            <span className="hero-topping-label">Try it — tap a topping:</span>
+            <span className="hero-topping-label">Try it-tap a topping:</span>
             <div className="hero-topping-buttons">
               {['Olives', 'Bell Pepper', 'Mushroom', 'Jalapeno', 'Onion', 'Sweet Corn'].map((veg) => (
                 <button
@@ -265,29 +265,29 @@ const Landing = () => {
       <div className="stats-bar">
         <Reveal delay={0}>
           <div className="stat-item">
-            <div className="stat-icon">⭐</div>
+            <div className="stat-icon"></div>
             <div className="stat-value">4.8★</div>
             <div className="stat-label">Average Rating</div>
           </div>
         </Reveal>
         <Reveal delay={80}>
           <div className="stat-item">
-            <div className="stat-icon">🍕</div>
+            <div className="stat-icon"></div>
             <div className="stat-value">500+</div>
             <div className="stat-label">Pizzas Served</div>
           </div>
         </Reveal>
         <Reveal delay={160}>
           <div className="stat-item">
-            <div className="stat-icon">🚴</div>
+            <div className="stat-icon"></div>
             <div className="stat-value">30 min</div>
             <div className="stat-label">Avg Delivery</div>
           </div>
         </Reveal>
         <Reveal delay={240}>
           <div className="stat-item">
-            <div className="stat-icon">🧀</div>
-            <div className="stat-value">20+</div>
+            <div className="stat-icon"></div>
+            <div className="stat-value">6+</div>
             <div className="stat-label">Toppings to Choose</div>
           </div>
         </Reveal>
@@ -324,18 +324,18 @@ const Landing = () => {
             <h3 style={{ margin: '0 auto 14px' }}>Our Story</h3>
             <p className="about-text">
               FornoRosso started with one idea: pizza should be built exactly the way you want it,
-              without compromise. Every base is rolled fresh, every topping is portioned by hand,
-              and every order is tracked from oven to doorstep — so you always know exactly when
+              without compromise. Every base is rolled fresh, every topping is portioned by hand
+              and every order is tracked from oven to doorstep, so you always know exactly when
               your next slice is arriving.
             </p>
-            <p className="about-quote">"We don't just deliver pizza. We deliver it fired your way." — The FornoRosso Kitchen</p>
+            <p className="about-quote">"We don't just deliver pizza. We deliver it fired your way" — The FornoRosso Kitchen</p>
           </div>
         </Reveal>
       </section>
 
       <section id="menu" className="section">
         <h3 style={{ margin: '0 auto 6px' }}>Fan Favorites</h3>
-        <h2 style={{ textAlign: 'center', marginBottom: 34 }}>Our Signature Pizzas</h2>
+        <h2 style={{ textAlign: 'center', marginBottom: 34 }}>Our Signature Pizza's</h2>
         <Marquee
           items={SIGNATURE_PIZZAS}
           direction="left"
@@ -454,10 +454,10 @@ const Landing = () => {
 
           <div className="footer-col">
             <div className="footer-col-title">Follow Us</div>
-            <a href="#">Instagram</a>
-            <a href="#">YouTube</a>
-            <a href="#">X (Twitter)</a>
-            <a href="#">Facebook</a>
+            <a href="https://www.instagram.com/">Instagram</a>
+            <a href="https://www.youtube.com/">YouTube</a>
+            <a href="https://x.com/">X (Twitter)</a>
+            <a href="https://www.facebook.com/">Facebook</a>
           </div>
         </div>
 
