@@ -24,21 +24,10 @@ const Login = () => {
 
     try {
       const res = await API.post('/auth/login', formData);
-
-      // Enforce that the selected tab matches the account's actual role -
-      // prevents a regular user from accidentally landing on /admin, and
-      // tells an admin clearly if they picked the wrong tab.
-      if (loginAs === 'admin' && res.data.user.role !== 'admin') {
-        setError('This account does not have admin access. Try the User tab instead.');
-        return;
-      }
-      if (loginAs === 'user' && res.data.user.role === 'admin') {
-        // Admins are still allowed to log in via the Student tab (it's just a regular login),
-        // so no error here - just proceed normally.
-      }
-
-      login(res.data.user, res.data.token);
-      navigate('/');
+      // Login now only sends an OTP - actual sign-in happens after verifying it.
+      // We can't check role/admin-tab-matching until after OTP verification,
+      // since the login response no longer includes the user/token directly.
+      navigate('/verify-otp', { state: { email: res.data.email, loginAs } });
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     }

@@ -73,6 +73,42 @@ const login = async (req, res) => {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
+    // Generate a 6-digit OTP and email it, instead of logging in immediately.
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    user.otpCode = otp;
+    user.otpExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+    await user.save();
+
+    await sendEmail({
+      to: user.email,
+      subject: 'Your FornoRosso Login Code',
+      html: `<p>Hi ${user.name},</p><p>Your login verification code is:</p><h2 style="letter-spacing:4px;">${otp}</h2><p>This code expires in 10 minutes.</p>`,
+    });
+
+    return res.json({ message: 'OTP sent to your email', email: user.email });
+  } catch (err) {
+    return res.status(500).json({ message: 'Login failed', error: err.message });
+  }
+};
+
+// @route  POST /api/auth/verify-otp
+const verifyOtp = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+    const user = await User.findOne({
+      email,
+      otpCode: otp,
+      otpExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired code' });
+    }
+
+    user.otpCode = undefined;
+    user.otpExpires = undefined;
+    await user.save();
+
     const token = generateToken(user._id, user.role);
 
     return res.json({
@@ -83,10 +119,12 @@ const login = async (req, res) => {
         email: user.email,
         role: user.role,
         isVerified: user.isVerified,
+        avatar: user.avatar,
+        bio: user.bio,
       },
     });
   } catch (err) {
-    return res.status(500).json({ message: 'Login failed', error: err.message });
+    return res.status(500).json({ message: 'Verification failed', error: err.message });
   }
 };
 
@@ -144,4 +182,4 @@ const resetPassword = async (req, res) => {
   }
 };
 
-module.exports = { register, verifyEmail, login, forgotPassword, resetPassword };
+module.exports = { register, verifyEmail, login, verifyOtp, forgotPassword, resetPassword };

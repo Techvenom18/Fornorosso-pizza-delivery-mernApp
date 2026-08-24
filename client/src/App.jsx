@@ -11,6 +11,7 @@ import { useSidebar } from './context/SidebarContext';
 import Favorites from './pages/Favorites';
 import Bills from './pages/Bills';
 import Profile from './pages/Profile';
+import VerifyOtp from './pages/VerifyOtp';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -36,8 +37,9 @@ function App() {
       <Sidebar />
       <div className={`app-shift ${open ? 'shifted' : ''}`}>
       <Routes>
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/verify-otp" element={<VerifyOtp />} />
+      
       <Route
         path="/builder"
         element={
