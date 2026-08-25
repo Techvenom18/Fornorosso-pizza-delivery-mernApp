@@ -53,7 +53,7 @@ const Sidebar = () => {
             <div className="sidebar-profile-email">{user?.email}</div>
           </div>
           <div className="sidebar-switch-wrap">
-            <button className="sidebar-switch-btn" onClick={(e) => e.currentTarget.nextSibling.classList.toggle('open')}>
+            <button className="sidebar-switch-btn" title="Switch to another account" onClick={(e) => e.currentTarget.nextSibling.classList.toggle('open')}>
               {Icon.switch}
             </button>
             <div className="sidebar-switch-popover">

@@ -12,6 +12,7 @@ import Favorites from './pages/Favorites';
 import Bills from './pages/Bills';
 import Profile from './pages/Profile';
 import VerifyOtp from './pages/VerifyOtp';
+import Legal from './pages/Legal';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -90,6 +91,7 @@ function App() {
         }
       />
       <Route path="/" element={<Landing />} />
+      <Route path="/legal/:type" element={<Legal />} />
       </Routes>
       </div>
     </>

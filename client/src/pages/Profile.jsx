@@ -125,10 +125,15 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="profile-hero">
+      {/* <div className="profile-hero">
         <Avatar name={user?.name} imageUrl={user?.avatar} size={100} className="profile-avatar-large" />
         <h2 style={{ margin: '14px 0 4px' }}>{user?.name}</h2>
         {user?.bio && <p className="profile-bio-text">{user.bio}</p>}
+      </div> */}
+
+      <div style={{ position: 'relative', display: 'inline-block' }}>
+        <Avatar name={user?.name} imageUrl={user?.avatar} size={100} className="profile-avatar-large" />
+        <button className="avatar-pencil-btn" onClick={() => setShowEditModal(true)}>✎</button>
       </div>
 
       <div className="profile-stats-row">

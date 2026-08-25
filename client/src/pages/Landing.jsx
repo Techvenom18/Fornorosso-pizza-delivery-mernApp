@@ -211,7 +211,7 @@ const Landing = () => {
             <a href="#deals" className={activeSection === 'deals' ? 'nav-active' : ''} onClick={scrollTo('deals')}>Deals</a>
             <a href="#faq" className={activeSection === 'faq' ? 'nav-active' : ''} onClick={scrollTo('faq')}>FAQ</a>
           </nav>
-                    <div className="header-zone header-zone-right">
+            <div className="header-zone header-zone-right">
             {user ? (
               <button className="profile-trigger" onClick={openSidebar}>
                   <Avatar name={user?.name} imageUrl={user?.avatar} size={38} />
@@ -232,8 +232,17 @@ const Landing = () => {
           <h1>Build your <span style={{ color: 'var(--red)' }}>perfect</span> pizza.</h1>
           <p>Pick your base, sauce, cheese and toppings. We'll fire it up and get it to your door hot, fresh and exactly how you like it.</p>
           <div>
-            <button className="btn btn-primary" onClick={() => navigate('/Builder')} style={{ marginRight: 10 }}>Order Now</button>
-            <button className="btn" onClick={() => navigate('/Favorites')}>My Favorites</button>
+            {user ? (
+              <>
+                <button className="btn btn-primary" onClick={() => navigate('/builder')} style={{ marginRight: 10 }}>Order Now</button>
+                <button className="btn" onClick={() => navigate('/favorites')}>My Favorites</button>
+              </>
+            ) : (
+              <>
+                <button className="btn btn-primary" onClick={() => navigate('/register')} style={{ marginRight: 10 }}>Order Now</button>
+                <button className="btn" onClick={() => navigate('/login')}>I Already Have an Account</button>
+              </>
+            )}
           </div>
         </div>
         <div className={`hero-visual ${loaded ? 'load-in' : 'load-pending'}`} style={{ transitionDelay: '150ms' }}>
@@ -447,9 +456,9 @@ const Landing = () => {
 
           <div className="footer-col">
             <div className="footer-col-title">Legal</div>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Refund Policy</a>
+            <a href="/legal/privacy">Privacy Policy</a>
+            <a href="legal/items">Terms of Service</a>
+            <a href="legal/refund">Refund Policy</a>
           </div>
 
           <div className="footer-col">

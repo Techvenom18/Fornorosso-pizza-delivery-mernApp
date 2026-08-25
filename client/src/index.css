@@ -2789,3 +2789,10 @@ body.sidebar-open {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.avatar-pencil-btn {
+  position: absolute; bottom: 0; right: 0;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--red); color: #fff; border: 3px solid var(--surface);
+  cursor: pointer; font-size: 0.9rem;
+}
