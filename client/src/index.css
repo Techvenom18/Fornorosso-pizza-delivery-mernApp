@@ -2728,3 +2728,64 @@ body.sidebar-open {
   color: #fff;
   box-shadow: 0 3px 10px rgba(255, 75, 62, 0.3);
 }
+
+/* ---- OTP digit boxes ---- */
+
+.otp-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.otp-box {
+  width: 46px;
+  height: 56px;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.otp-box:focus {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(255, 75, 62, 0.15);
+}
+
+.otp-box:disabled {
+  opacity: 0.6;
+}
+
+/* ---- Resend row ---- */
+
+.otp-resend-row {
+  text-align: center;
+  margin: 18px 0;
+}
+
+.otp-resend-timer {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.otp-resend-btn {
+  background: none;
+  border: none;
+  color: var(--red);
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.otp-resend-btn:hover {
+  text-decoration: underline;
+}
+.otp-resend-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

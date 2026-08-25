@@ -10,6 +10,7 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loginAs, setLoginAs] = useState('user'); // 'user' | 'admin'
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
   const todaysOffer = getTodaysOffer();
@@ -21,16 +22,18 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     try {
       const res = await API.post('/auth/login', formData);
-      // Login now only sends an OTP - actual sign-in happens after verifying it.
-      // We can't check role/admin-tab-matching until after OTP verification,
-      // since the login response no longer includes the user/token directly.
-      navigate('/verify-otp', { state: { email: res.data.email, loginAs } });
+      navigate('/verify-otp', { state: { email: res.data.email, loginAs, password: formData.password } });
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
+      setLoading(false);
     }
+    // Deliberately not resetting loading in a `finally` block - if login succeeds,
+    // we're navigating away immediately, so the button staying disabled during
+    // that split-second transition is fine and avoids a flash of re-enabled state.
   };
 
   return (
@@ -79,8 +82,8 @@ const Login = () => {
               required
             />
             {error && <p className="error-text">{error}</p>}
-            <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
-              Login
+            <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading}>
+              {loading ? 'Sending code...' : 'Login'}
             </button>
           </form>
 
