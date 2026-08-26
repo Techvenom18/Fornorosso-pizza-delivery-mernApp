@@ -61,6 +61,12 @@ const TRUST_MESSAGES = [
   '🔒 Secure Checkout 🔒',
 ];
 
+const PLANS = [
+  { name: 'Premium', price: 299, seats: 2, features: ['1 Admin Accounts', 'Basic Order Management', 'Email Support'] },
+  { name: 'Platinum', price: 399, seats: 3, features: ['2 Admin Accounts', 'Advanced Order Management', 'Priority Support', 'Inventory Alerts'] },
+  { name: 'Diamond', price: 599, seats: 4, features: ['3 Admin Accounts', 'Full Order Management', '24/7 Priority Support', 'Inventory Alerts', 'Analytics Dashboard'], featured: true },
+];
+
 const FAQS = [
   { question: 'How long does delivery usually take?', answer: 'Most orders arrive within 30 minutes of confirmation, depending on your location and kitchen load.' },
   { question: 'Can I customize spice levels or remove ingredients?', answer: 'Yes — the builder lets you pick your exact base, sauce, cheese, and any combination of toppings, so you have full control.' },
@@ -196,6 +202,13 @@ const Landing = () => {
     } finally {
       setPlacing(false);
     }
+  };
+
+  const handlePlanSelect = (plan) => {
+    if (!user) { navigate('/login'); return; }
+    showToast(`${plan.name} plan selected - mock checkout (real gateway pending KYC)`, 'info');
+    // Same honest mock-mode pattern as your pizza payments - fully wireable to
+    // a real gateway later by swapping this for an actual payment API call.
   };
 
   return (
@@ -422,6 +435,26 @@ const Landing = () => {
             </div>
           )}
         />
+      </section>
+
+      <section className="section">
+        <h3 style={{ margin: '0 auto 6px' }}>For Restaurant Owners</h3>
+        <h2 style={{ textAlign: 'center', marginBottom: 34 }}>Choose Your Plan</h2>
+        <div className="plans-grid">
+          {PLANS.map((plan) => (
+            <div key={plan.name} className={`plan-card ${plan.featured ? 'plan-featured' : ''}`}>
+              {plan.featured && <div className="plan-badge">Most Popular</div>}
+              <div className="plan-name">{plan.name}</div>
+              <div className="plan-price">₹{plan.price}<span>/month</span></div>
+              <ul className="plan-features">
+                {plan.features.map((f) => <li key={f}>{f}</li>)}
+              </ul>
+              <button className={plan.featured ? 'btn btn-primary' : 'btn'} style={{ width: '100%' }} onClick={() => handlePlanSelect(plan)}>
+                Choose {plan.name}
+              </button>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section id="faq" className="section">

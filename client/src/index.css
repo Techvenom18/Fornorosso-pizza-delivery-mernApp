@@ -2796,3 +2796,102 @@ body.sidebar-open {
   background: var(--red); color: #fff; border: 3px solid var(--surface);
   cursor: pointer; font-size: 0.9rem;
 }
+
+/* ---- Pricing plans ---- */
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 36px;
+}
+@media (min-width: 780px) {
+  .plans-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.plan-card {
+  position: relative;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 22px;
+  padding: 32px 26px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.plan-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+  border-color: var(--border-warm);
+}
+
+.plan-featured {
+  border-color: var(--red);
+  box-shadow: 0 10px 30px rgba(255, 75, 62, 0.15);
+}
+.plan-featured:hover {
+  border-color: var(--red);
+  box-shadow: 0 20px 44px rgba(255, 75, 62, 0.25);
+}
+
+.plan-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--red);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(255, 75, 62, 0.35);
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.plan-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.plan-price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2.2rem;
+  color: var(--red);
+  margin-bottom: 20px;
+}
+.plan-price span {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  flex: 1;
+}
+.plan-features li {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.plan-features li::before {
+  content: '✓';
+  color: var(--green);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.plan-features li:last-child { border-bottom: none; }
