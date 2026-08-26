@@ -62,9 +62,9 @@ const TRUST_MESSAGES = [
 ];
 
 const PLANS = [
-  { name: 'Premium', price: 299, seats: 2, features: ['1 Admin Accounts', 'Basic Order Management', 'Email Support'] },
-  { name: 'Platinum', price: 399, seats: 3, features: ['2 Admin Accounts', 'Advanced Order Management', 'Priority Support', 'Inventory Alerts'] },
-  { name: 'Diamond', price: 599, seats: 4, features: ['3 Admin Accounts', 'Full Order Management', '24/7 Priority Support', 'Inventory Alerts', 'Analytics Dashboard'], featured: true },
+  { name: 'Premium', icon: '🥈', price: 299, seats: 2, features: ['1 Admin Accounts', 'Basic Order Management', 'Email Support'] },
+  { name: 'Platinum', icon: '🥇', price: 399, seats: 3, features: ['2 Admin Accounts', 'Advanced Order Management', 'Priority Support', 'Inventory Alerts'], featured: true},
+  { name: 'Diamond', icon: '💎', price: 599, seats: 4, features: ['3 Admin Accounts', 'Full Order Management', '24/7 Priority Support', 'Inventory Alerts', 'Analytics Dashboard']},
 ];
 
 const FAQS = [
@@ -93,6 +93,7 @@ const Landing = () => {
   const [offerBlink, setOfferBlink] = useState(false);
   const { user } = useAuth();
   const { openSidebar } = useSidebar();
+  const [billingCycle, setBillingCycle] = useState('monthly'); // 'monthly' | 'annual'
 
   useEffect(() => {
     const handler = () => {
