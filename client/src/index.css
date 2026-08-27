@@ -2895,3 +2895,65 @@ body.sidebar-open {
   flex-shrink: 0;
 }
 .plan-features li:last-child { border-bottom: none; }
+
+/* ---- Billing toggle ---- */
+
+.billing-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 34px;
+}
+
+.billing-toggle-btn {
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 2px solid var(--border-warm);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.billing-toggle-btn:hover { border-color: var(--red); }
+.billing-toggle-btn.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+.billing-save-tag {
+  background: var(--green);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* ---- Plan icon + strikethrough ---- */
+
+.plan-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.plan-original-price {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  margin: -14px 0 20px;
+}
+
+/* ---- Featured plan default emphasis (not just on hover) ---- */
+
+.plan-featured {
+  transform: scale(1.04);
+}
+@media (max-width: 780px) {
+  .plan-featured { transform: none; }
+}

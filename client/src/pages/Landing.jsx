@@ -440,13 +440,36 @@ const Landing = () => {
 
       <section className="section">
         <h3 style={{ margin: '0 auto 6px' }}>For Restaurant Owners</h3>
-        <h2 style={{ textAlign: 'center', marginBottom: 34 }}>Choose Your Plan</h2>
+        <h2 style={{ textAlign: 'center', marginBottom: 20 }}>Choose Your Plan</h2>
+
+        <div className="billing-toggle">
+          <button
+            className={`billing-toggle-btn ${billingCycle === 'monthly' ? 'active' : ''}`}
+            onClick={() => setBillingCycle('monthly')}
+          >
+            Monthly
+          </button>
+          <button
+            className={`billing-toggle-btn ${billingCycle === 'annual' ? 'active' : ''}`}
+            onClick={() => setBillingCycle('annual')}
+          >
+            Annual <span className="billing-save-tag">Save 20%</span>
+          </button>
+        </div>
+
         <div className="plans-grid">
           {PLANS.map((plan) => (
             <div key={plan.name} className={`plan-card ${plan.featured ? 'plan-featured' : ''}`}>
               {plan.featured && <div className="plan-badge">Most Popular</div>}
+              <div className="plan-icon">{plan.icon}</div>
               <div className="plan-name">{plan.name}</div>
-              <div className="plan-price">₹{plan.price}<span>/month</span></div>
+              <div className="plan-price">
+                ₹{billingCycle === 'monthly' ? plan.price : plan.annualPrice}
+                <span>/{billingCycle === 'monthly' ? 'month' : 'year'}</span>
+              </div>
+              {billingCycle === 'annual' && (
+                <div className="plan-original-price">₹{plan.price * 12}/year</div>
+              )}
               <ul className="plan-features">
                 {plan.features.map((f) => <li key={f}>{f}</li>)}
               </ul>
