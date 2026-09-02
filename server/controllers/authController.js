@@ -2,6 +2,8 @@ const crypto = require('crypto');
 const User = require('../models/User');
 const generateToken = require('../config/generateToken');
 const sendEmail = require('../config/mailer');
+const { OAuth2Client } = require('google-auth-library');
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // @route  POST /api/auth/register
 const register = async (req, res) => {
@@ -182,4 +184,56 @@ const resetPassword = async (req, res) => {
   }
 };
 
-module.exports = { register, verifyEmail, login, verifyOtp, forgotPassword, resetPassword };
+// @route  POST /api/auth/google
+// Verifies a Google ID token, then logs in an existing user or creates a new
+// one automatically. No OTP needed here since Google has already verified
+// the person owns this email address.
+const googleAuth = async (req, res) => {
+  try {
+    const { credential } = req.body;
+    if (!credential) {
+      return res.status(400).json({ message: 'Google credential is required' });
+    }
+
+    const ticket = await googleClient.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    const { email, name, picture } = payload;
+
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      // New user via Google - no password needed, but our schema requires one,
+      // so generate a random unusable one (they'll only ever log in via Google).
+      const randomPassword = crypto.randomBytes(20).toString('hex');
+      user = await User.create({
+        name,
+        email,
+        password: randomPassword,
+        isVerified: true, // Google already verified their email
+        avatar: picture || '',
+      });
+    }
+
+    const token = generateToken(user._id, user.role);
+
+    return res.json({
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        isVerified: user.isVerified,
+        avatar: user.avatar,
+        bio: user.bio,
+      },
+    });
+  } catch (err) {
+    return res.status(500).json({ message: 'Google authentication failed', error: err.message });
+  }
+};
+
+module.exports = { register, verifyEmail, login, verifyOtp, forgotPassword, resetPassword, googleAuth };
