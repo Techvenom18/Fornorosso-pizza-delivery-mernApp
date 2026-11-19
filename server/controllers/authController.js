@@ -31,7 +31,8 @@ const register = async (req, res) => {
     // In test/dev mode this link just points at your local frontend.
     const verifyUrl = `${process.env.CLIENT_URL || 'http://localhost:3000'}/verify-email/${verificationToken}`;
 
-    await sendEmail({
+    // Fire-and-forget: signup must never wait on (or fail because of) SMTP.
+    sendEmail({
       to: user.email,
       subject: 'Verify your Pizza Delivery App account',
       html: `<p>Hi ${user.name},</p><p>Click <a href="${verifyUrl}">here</a> to verify your email.</p>`,
@@ -81,7 +82,9 @@ const login = async (req, res) => {
     user.otpExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
     await user.save();
 
-    await sendEmail({
+    // Fire-and-forget: respond immediately, the code is already saved to the DB,
+    // so even a slow mail server can't turn this into a 60s+ hanging request.
+    sendEmail({
       to: user.email,
       subject: 'Your FornoRosso Login Code',
       html: `<p>Hi ${user.name},</p><p>Your login verification code is:</p><h2 style="letter-spacing:4px;">${otp}</h2><p>This code expires in 10 minutes.</p>`,
@@ -148,7 +151,7 @@ const forgotPassword = async (req, res) => {
 
     const resetUrl = `${process.env.CLIENT_URL || 'http://localhost:3000'}/reset-password/${resetToken}`;
 
-    await sendEmail({
+    sendEmail({
       to: user.email,
       subject: 'Reset your Pizza Delivery App password',
       html: `<p>Click <a href="${resetUrl}">here</a> to reset your password. This link expires in 1 hour.</p>`,

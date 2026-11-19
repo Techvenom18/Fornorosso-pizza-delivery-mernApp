@@ -18,7 +18,8 @@ const subscribe = async (req, res) => {
     }
 
     const offer = getTodaysOffer();
-    await sendEmail({
+    // Fire-and-forget so subscribing doesn't hang on SMTP.
+    sendEmail({
       to: email,
       subject: `Today's Offer at FornoRosso: ${offer}`,
       html: offerEmailHtml(offer, email),

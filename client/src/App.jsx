@@ -12,6 +12,7 @@ import Favorites from './pages/Favorites';
 import Bills from './pages/Bills';
 import Profile from './pages/Profile';
 import VerifyOtp from './pages/VerifyOtp';
+import VerifyEmail from './pages/VerifyEmail';
 import Legal from './pages/Legal';
 
 const ProtectedRoute = ({ children }) => {
@@ -41,6 +42,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
+        <Route path="/verify-email/:token" element={<VerifyEmail />} />
       
       <Route
         path="/builder"
