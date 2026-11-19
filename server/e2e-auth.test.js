@@ -21,6 +21,7 @@ const check = (label, ok, extra = '') => {
 };
 
 const call = async (method, path, body, token) => {
+  const started = Date.now();
   const res = await fetch(`${BASE}${path}`, {
     method,
     headers: {
@@ -28,6 +29,7 @@ const call = async (method, path, body, token) => {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
     body: body ? JSON.stringify(body) : undefined,
+    signal: AbortSignal.timeout(300000),
   });
   let data = null;
   try {
@@ -35,6 +37,8 @@ const call = async (method, path, body, token) => {
   } catch {
     /* no body */
   }
+  const ms = Date.now() - started;
+  console.log(`      ${method} ${path} -> ${res.status} in ${ms}ms${ms > 15000 ? '  <-- SLOW (SMTP blocking? stale deploy?)' : ''}`);
   return { status: res.status, data };
 };
 
